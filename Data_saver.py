@@ -1,5 +1,6 @@
 from tkinter import *
 
+# IMPORT THE SQLITE3
 import sqlite3
 
 # Create the main window.

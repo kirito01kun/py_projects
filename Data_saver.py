@@ -256,6 +256,11 @@ class App():
                 height=4, width=18, fg='#fafafa',
                 command=lambda: self.sign_in_form())
         
+        # make sign-out button option.
+        self.Sign_out = Button(root, text="Log out", bg='#424242',
+                height=1, width=10, fg='#fafafa',
+                command=lambda: self.menu_click())
+        
         # make quit button option.
         self.Quit = Button(root, text="Quit", bg='#424242',
                 width=18, height=4, fg='#fafafa',
@@ -409,11 +414,12 @@ class App():
         self.signin_pwd.delete(0, END)
         self.signup_username.delete(0, END)
         self.signup_pwd.delete(0, END)
-
+        self.Sign_out.grid_forget()
 
     def menu_click(self):
         # show up the first window form. 
-
+        
+        self.clear_side()
         self.Sign_up.grid(row=1, column=0)
         self.Sign_in.grid(row=2, column=0)
         self.Quit.grid(row=3, column=0)
@@ -505,11 +511,12 @@ class App():
             self.add_mail_button.grid(row=0,
                     column=1, columnspan=2)
             self.maildata_list.grid(row=1,
-                    column=1, rowspan=3)
+                    column=1, columnspan=2, rowspan=3)
             self.scrollbar.grid(row=1,
-                    column=2, rowspan=3, sticky='ns')
+                    column=3, rowspan=3, sticky='ns')
             self.back_choice_data.grid(row=4, column=1)
-            
+            self.Sign_out.grid(row=4, column=2)
+
             # getting data from the 'emails'
             # column in database.
             temp = ''
@@ -543,11 +550,12 @@ class App():
             self.add_contact_button.grid(row=0,
                     column=1, columnspan=2)
             self.contactdata_list.grid(row=1,
-                    column=1, rowspan=3)
-            self.scrollbar1.grid(row=1, column=2,
+                    column=1, columnspan=2, rowspan=3)
+            self.scrollbar1.grid(row=1, column=3,
                     rowspan=3, sticky='ns')
             self.back_choice_data.grid(row=4, column=1)
-            
+            self.Sign_out.grid(row=4, column=2)
+
             # getting data from the 'contacts' column
             # in the data base.
             temp = ''
@@ -581,11 +589,13 @@ class App():
             self.add_random_button.grid(row=0,
                     column=1, columnspan=2)
             self.randomdata_list.grid(row=1,
-                    column=1, rowspan=3)
-            self.scrollbar2.grid(row=1, column=2,
+                    column=1, columnspan=2, rowspan=3)
+            self.scrollbar2.grid(row=1, column=3,
                     rowspan=3, sticky='ns')
             self.back_choice_data.grid(row=4, column=1)
+            self.Sign_out.grid(row=4, column=2)
             
+
             # getting data from random column
             # in the data base.
             temp = ''
@@ -620,14 +630,11 @@ class App():
         self.clear_side()
         self.back_mail_data.grid(row=4, column=1)
         self.signin_username.grid(row=1, column=2)
-        self.success.grid(row=4, column=2, columnspan=2)
         self.signin_pwd.grid(row=2, column=2)
         self.submit_add_mail.grid(row=3, column=2)
         self.space1stusr.grid(row=1, column=1)
         self.space1stpwd.grid(row=2, column=1)
         self.space2nd.grid(row=1, column=3)
-        self.success.after(1000,
-                lambda: self.success.grid_forget())
 
 
     def mail_added(self, user, usrpwd):
@@ -649,7 +656,6 @@ class App():
         # making the adding contact form.
 
         self.clear_side()
-        self.success.grid(row=4, column=2)
         self.back_contact_data.grid(row=4, column=1)
         self.contactnamefield.grid(row=1, column=2)
         self.contactpwdfield.grid(row=2, column=2)
@@ -657,8 +663,6 @@ class App():
         self.contactpwdspace.grid(row=2, column=1)
         self.space2nd.grid(row=1, column=3)
         self.submit_add_contact.grid(row=3, column=2)
-        self.success.after(2000,
-                lambda: self.success.grid_forget())
 
 
     def contact_added(self, name, gsm):
@@ -681,15 +685,11 @@ class App():
         # making random data form.
 
         self.clear_side()
-        self.success.grid(row=4, column=2)
-        self.success.after(1000,
-                lambda: self.success.grid_forget())
         self.back_random_data.grid(row=4, column=1)
         self.space2nd.grid(row=1, column=1)
         self.space2nd.grid(row=1, column=3)
         self.signin_username.grid(row=1, column=2)
         self.submit_add_random.grid(row=3, column=2)
-
 
     def random_added(self, data):
         # this method will call the Formatting class

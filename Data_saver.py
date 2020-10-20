@@ -201,6 +201,14 @@ class App():
 
     def __init__(self):
 
+        # Design images used.
+        # Icons made by <a href="https://www.flaticon.com/authors/freepik"
+        # title="Freepik">Freepik</a> from 
+        # <a href="https://www.flaticon.com/"
+        # title="Flaticon"> www.flaticon.com</a>
+
+        self.Login_img = PhotoImage(file='img\login_m.png')
+
         copyright.grid(row=4, column=0)
         # this var will contain the name of current user.
         self.current_user = ''
@@ -226,8 +234,10 @@ class App():
         
         # the sign-in submit button will call the check_member
         # method and pass user name and pwd intered to it.
-        self.signin_submit = Button(root, text="Log in", bg='#424242',
-                height=1, width=18, fg='#fafafa',
+        self.signin_submit = Button(root, image=self.Login_img, bg='#424242',
+                fg='#fafafa', activebackground='#424242',
+                height=20, border=0, text="Log in ",
+                font="Helvetica 10 bold", compound=RIGHT,
                 command=lambda: self.check_member(self.signin_username.get(),
                     self.signin_pwd.get()))
         
@@ -241,24 +251,25 @@ class App():
         
         # create menu buuton.
         self.menu = Button(root, text="Menu", width=18, fg='#fafafa',
-                bg='#424242', command=lambda: self.menu_click(), height=4)
+                bg='#424242', font="Helvetica 10 bold",
+                command=lambda: self.menu_click(), height=4)
         
         # show menu button on window.
         self.menu.grid(row=0, column=0)
         
         # make sign-up button option.
         self.Sign_up = Button(root, text="Sign up", bg='#424242',
-                height=4, width=18, fg='#fafafa',
+                height=4, width=18, fg='#fafafa', font="Helvetica 10 bold",
                 command=lambda: self.sign_up_form())
 
         # make sign-in button option.
         self.Sign_in = Button(root, text="Log in", bg='#424242',
-                height=4, width=18, fg='#fafafa',
+                height=4, width=18, fg='#fafafa', font="Helvetica 10 bold",
                 command=lambda: self.sign_in_form())
         
         # make quit button option.
         self.Quit = Button(root, text="Quit", bg='#424242',
-                width=18, height=4, fg='#fafafa',
+                width=18, height=4, fg='#fafafa', font="Helvetica 10 bold",
                 command=lambda: self.quit())
         
         # making the 'existing sign-up error' text label.
@@ -300,55 +311,68 @@ class App():
         
         # make 'Pick one :' text label.
         self.pick = Label(root, text="Pick One :",
-                fg='#fafafa', bg='#424242')
+                fg='#fafafa', font="Helvetica 10 bold", bg='#424242')
         
         # make 'Email', 'Contact', 'Random Data' option buttons.
         self.mail_button = Button(root, text="Email",
-                width=22, fg='#fafafa', bg='#424242', height=4,
+                width=22, font="Helvetica 11 bold", fg='#fafafa',
+                bg='#424242', height=4, border=0,
                 command=lambda: self.data_list('mail'))
         self.contact_button = Button(root, text="Contact",
                 width=22, fg='#fafafa', bg='#424242', height=4,
+                font="Helvetica 11 bold", border=0,
                 command=lambda: self.data_list('contact'))
         self.randomdata_button = Button(root, text="Random Data",
                 width=22, fg='#fafafa', bg='#424242', height=4,
+                font="Helvetica 11 bold", border=0,
                 command=lambda: self.data_list('random'))
 
         # make go to data entring menu buttons.
         self.add_mail_button = Button(root, text="Add E-mail",
                 width=22, height=2, fg='#fafafa', bg='#424242',
+                font="Helvetica 10 bold",
                 command=lambda: self.adding_mail())
         self.add_contact_button = Button(root, text="Add Contact",
                 bg='#424242', height=2, width=15, fg='#fafafa',
+                font="Helvetica 10 bold",
                 command=lambda: self.adding_contact())
         self.add_random_button = Button(root, text="Add Random data",
                 bg='#424242', width=15, height=2, fg='#fafafa',
+                font="Helvetica 10 bold",
                 command=lambda: self.adding_random_data())
 
         # make back buttons.
         self.back_choice_data = Button(root, text="Back",
                 bg='#424242', width=10, height=1, fg='#fafafa',
+                font="Helvetica 10 bold",
                 command=lambda: self.choice_data())
         self.back_mail_data = Button(root, text="Back",
                 bg='#424242', width=10, height=1, fg='#fafafa',
+                font="Helvetica 10 bold",
                 command=lambda: self.data_list('mail'))
         self.back_contact_data = Button(root, text="Back",
                 bg='#424242', width=10, height=1, fg='#fafafa',
+                font="Helvetica 10 bold",
                 command=lambda: self.data_list('contact'))
         self.back_random_data = Button(root, text="Back",
                 bg='#424242', width=10, height=1, fg='#fafafa',
+                font="Helvetica 10 bold",
                 command=lambda: self.data_list('random'))
         
         # making submit buttons for every option.
         self.submit_add_mail = Button(root, text="Add it",
                 bg='#424242', height=1, width=15, fg='#fafafa',
+                font="Helvetica 10 bold",
                 command=lambda: self.mail_added(self.signin_username.get(),
                     self.signin_pwd.get()))
         self.submit_add_contact = Button(root, text="Add it",
                 bg='#424242',height=1, width=15, fg='#fafafa',
+                font="Helvetica 10 bold",
                 command=lambda: self.contact_added(self.contactnamefield.get(),
                     self.contactpwdfield.get()))
         self.submit_add_random = Button(root, text="Add it",
                 bg='#424242', height=1, width=15, fg='#fafafa',
+                font="Helvetica 10 bold",
                 command=lambda: self.random_added(self.signin_username.get()))
         
         # make contact data entering form.

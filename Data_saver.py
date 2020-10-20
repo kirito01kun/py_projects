@@ -207,7 +207,15 @@ class App():
         # <a href="https://www.flaticon.com/"
         # title="Flaticon"> www.flaticon.com</a>
 
-        self.Login_img = PhotoImage(file='img\login_m.png')
+        self.login_img = PhotoImage(file='img\login_m.png')
+        self.logout_img = PhotoImage(file='img\logout.png')
+        
+        self.email_option = PhotoImage(file='img\email.png')
+        self.phone_option = PhotoImage(file='img\phone.png')
+        self.text_option = PhotoImage(file='img\Text.png')
+
+        self.add_img = PhotoImage(file='img\plus.png')
+        self.back_img = PhotoImage(file='img\Back.png')
 
         copyright.grid(row=4, column=0)
         # this var will contain the name of current user.
@@ -221,10 +229,11 @@ class App():
 
         # the sign-up submit button will call the add_member
         # method and pass user name and pwd intered to it.
-        self.signup_submit = Button(root, text="Sign up",
-                bg='#424242', height=1, width=18, fg='#fafafa',
+        self.signup_submit = Button(root, text="Sign up ",
+                bg='#424242', fg='#fafafa', compound=RIGHT,
                 command=lambda: self.add_member(self.signup_username.get(),
-                    self.signup_pwd.get()))
+                    self.signup_pwd.get()), activebackground='#424242', 
+                font="Helvetica 10 bold", image=self.add_img, border=0)
         
         # making sign-in form.
         self.signin_username = Entry(root, fg='#fafafa',
@@ -234,9 +243,9 @@ class App():
         
         # the sign-in submit button will call the check_member
         # method and pass user name and pwd intered to it.
-        self.signin_submit = Button(root, image=self.Login_img, bg='#424242',
+        self.signin_submit = Button(root, image=self.login_img, bg='#424242',
                 fg='#fafafa', activebackground='#424242',
-                height=20, border=0, text="Log in ",
+                border=0, text="Log in ",
                 font="Helvetica 10 bold", compound=RIGHT,
                 command=lambda: self.check_member(self.signin_username.get(),
                     self.signin_pwd.get()))
@@ -248,7 +257,9 @@ class App():
                 fg='#fafafa', bg='#424242')
         self.space2nd = Label(root, text='             ',
                 fg='#fafafa', bg='#424242')
-        
+        self.space1st = Label(root, text='             ',
+                fg='#fafafa', bg='#424242')
+
         # create menu buuton.
         self.menu = Button(root, text="Menu", width=18, fg='#fafafa',
                 bg='#424242', font="Helvetica 10 bold",
@@ -258,18 +269,20 @@ class App():
         self.menu.grid(row=0, column=0)
         
         # make sign-up button option.
-        self.Sign_up = Button(root, text="Sign up", bg='#424242',
-                height=4, width=18, fg='#fafafa', font="Helvetica 10 bold",
-                command=lambda: self.sign_up_form())
+        self.Sign_up = Button(root, text="Sign up ", bg='#424242',
+                fg='#fafafa', font="Helvetica 10 bold", width=18, 
+                height=4, command=lambda: self.sign_up_form())
 
         # make sign-in button option.
-        self.Sign_in = Button(root, text="Log in", bg='#424242',
+        self.Sign_in = Button(root, text="Log in ", bg='#424242',
                 height=4, width=18, fg='#fafafa', font="Helvetica 10 bold",
                 command=lambda: self.sign_in_form())
         
         # make sign-out button option.
-        self.Sign_out = Button(root, text="Log out", bg='#424242',
-                height=1, width=10, fg='#fafafa',
+        self.Sign_out = Button(root, text=" Log out", bg='#424242',
+                image=self.logout_img, fg='#fafafa',
+                font="Helvetica 10 bold", compound=LEFT,
+                activebackground='#424242', border=0,
                 command=lambda: self.menu_click())
         
         # make quit button option.
@@ -302,9 +315,11 @@ class App():
         self.maildata_list = Listbox(root, height=12,
                 width=90, bg='#424242',
                 yscrollcommand=self.scrollbar.set, fg='#fafafa')
+        
         self.contactdata_list = Listbox(root, height=12,
                 width=90, bg='#424242',
                 yscrollcommand=self.scrollbar.set, fg='#fafafa')
+        
         self.randomdata_list = Listbox(root, height=12,
                 width=90, bg='#424242',
                 yscrollcommand=self.scrollbar.set, fg='#fafafa')
@@ -319,65 +334,84 @@ class App():
                 fg='#fafafa', font="Helvetica 10 bold", bg='#424242')
         
         # make 'Email', 'Contact', 'Random Data' option buttons.
-        self.mail_button = Button(root, text="Email",
-                width=22, font="Helvetica 11 bold", fg='#fafafa',
-                bg='#424242', height=4, border=0,
+        self.mail_button = Button(root, fg='#fafafa',
+                bg='#424242', activebackground='#424242',
+                border=0, image=self.email_option, width=150,
                 command=lambda: self.data_list('mail'))
-        self.contact_button = Button(root, text="Contact",
-                width=22, fg='#fafafa', bg='#424242', height=4,
-                font="Helvetica 11 bold", border=0,
+
+        self.contact_button = Button(root, fg='#fafafa',
+                bg='#424242', image=self.phone_option,
+                border=0, activebackground='#424242', width=150,
                 command=lambda: self.data_list('contact'))
-        self.randomdata_button = Button(root, text="Random Data",
-                width=22, fg='#fafafa', bg='#424242', height=4,
-                font="Helvetica 11 bold", border=0,
+        
+        self.randomdata_button = Button(root, fg='#fafafa',
+                bg='#424242', image=self.text_option,
+                activebackground='#424242', border=0, width=150,
                 command=lambda: self.data_list('random'))
 
-        # make go to data entring menu buttons.
-        self.add_mail_button = Button(root, text="Add E-mail",
-                width=22, height=2, fg='#fafafa', bg='#424242',
-                font="Helvetica 10 bold",
+        # make 'go to' data entring menu buttons.
+        self.add_mail_button = Button(root, text="Add E-mail ",
+                fg='#fafafa', bg='#424242',
+                font="Helvetica 10 bold", border=0,
+                activebackground='#424242',
+                compound=RIGHT, image=self.add_img,
                 command=lambda: self.adding_mail())
-        self.add_contact_button = Button(root, text="Add Contact",
-                bg='#424242', height=2, width=15, fg='#fafafa',
-                font="Helvetica 10 bold",
+        
+        self.add_contact_button = Button(root, text="Add Contact ",
+                bg='#424242', fg='#fafafa',
+                font="Helvetica 10 bold", border=0,
+                activebackground='#424242',
+                compound=RIGHT, image=self.add_img,
                 command=lambda: self.adding_contact())
-        self.add_random_button = Button(root, text="Add Random data",
-                bg='#424242', width=15, height=2, fg='#fafafa',
-                font="Helvetica 10 bold",
+        
+        self.add_random_button = Button(root, text="Add Random data ",
+                bg='#424242', fg='#fafafa',
+                font="Helvetica 10 bold", border=0,
+                activebackground='#424242',
+                compound=RIGHT, image=self.add_img,
                 command=lambda: self.adding_random_data())
 
         # make back buttons.
-        self.back_choice_data = Button(root, text="Back",
-                bg='#424242', width=10, height=1, fg='#fafafa',
-                font="Helvetica 10 bold",
+        self.back_choice_data = Button(root, text=" Back",
+                bg='#424242', fg='#fafafa',
+                font="Helvetica 10 bold", border=0,
+                compound=LEFT, image=self.back_img,
                 command=lambda: self.choice_data())
-        self.back_mail_data = Button(root, text="Back",
-                bg='#424242', width=10, height=1, fg='#fafafa',
-                font="Helvetica 10 bold",
+        
+        self.back_mail_data = Button(root, text=" Back",
+                bg='#424242', fg='#fafafa',
+                font="Helvetica 10 bold", border=0,
+                compound=LEFT, image=self.back_img,
                 command=lambda: self.data_list('mail'))
-        self.back_contact_data = Button(root, text="Back",
-                bg='#424242', width=10, height=1, fg='#fafafa',
-                font="Helvetica 10 bold",
+        
+        self.back_contact_data = Button(root, text=" Back",
+                bg='#424242', fg='#fafafa',
+                font="Helvetica 10 bold", border=0,
+                compound=LEFT, image=self.back_img,
                 command=lambda: self.data_list('contact'))
-        self.back_random_data = Button(root, text="Back",
-                bg='#424242', width=10, height=1, fg='#fafafa',
-                font="Helvetica 10 bold",
+        
+        self.back_random_data = Button(root, text=" Back",
+                bg='#424242', fg='#fafafa',
+                font="Helvetica 10 bold", border=0,
+                compound=LEFT, image=self.back_img,
                 command=lambda: self.data_list('random'))
         
         # making submit buttons for every option.
-        self.submit_add_mail = Button(root, text="Add it",
-                bg='#424242', height=1, width=15, fg='#fafafa',
-                font="Helvetica 10 bold",
+        self.submit_add_mail = Button(root, text="Add it ",
+                bg='#424242', fg='#fafafa', border=0,
+                font="Helvetica 10 bold", image=self.add_img,
                 command=lambda: self.mail_added(self.signin_username.get(),
                     self.signin_pwd.get()))
-        self.submit_add_contact = Button(root, text="Add it",
-                bg='#424242',height=1, width=15, fg='#fafafa',
-                font="Helvetica 10 bold",
+        
+        self.submit_add_contact = Button(root, text="Add it ",
+                bg='#424242', fg='#fafafa', border=0,
+                font="Helvetica 10 bold", image=self.add_img,
                 command=lambda: self.contact_added(self.contactnamefield.get(),
                     self.contactpwdfield.get()))
-        self.submit_add_random = Button(root, text="Add it",
-                bg='#424242', height=1, width=15, fg='#fafafa',
-                font="Helvetica 10 bold",
+        
+        self.submit_add_random = Button(root, text="Add it ",
+                bg='#424242', fg='#fafafa', border=0,
+                font="Helvetica 10 bold", image=self.add_img,
                 command=lambda: self.random_added(self.signin_username.get()))
         
         # make contact data entering form.
@@ -403,6 +437,7 @@ class App():
         self.signup_pwd.grid_forget()
         self.signin_submit.grid_forget()
         self.signup_submit.grid_forget()
+        self.space1st.grid_forget()
         self.space2nd.grid_forget()
         self.space1stusr.grid_forget()
         self.space1stpwd.grid_forget()
@@ -474,49 +509,52 @@ class App():
 
     def add_member(self, key, value):
         # this method will add new users.
+        
+        if (key != '') and (value != ''):
+            self.signup_username.delete(0, END)
+            self.signup_pwd.delete(0, END)
+        
+            # call the DataClass to check if user is already exist.
+            if DataBases.existing_user_or_not(key, value):
+                self.exesting.grid(row=4, column=2)
+                # show up the error for only 2 sec.
+                self.exesting.after(2000,
+                        lambda: self.exesting.grid_forget())
 
-        self.signup_username.delete(0, END)
-        self.signup_pwd.delete(0, END)
-
-        # call the DataClass to check if user is already exist.
-        if DataBases.existing_user_or_not(key, value):
-            self.exesting.grid(row=4, column=2)
-            # show up the error for only 2 sec.
-            self.exesting.after(2000,
-                    lambda: self.exesting.grid_forget())
-
-        else:
-            # add new user to database.
-            DataBases.add_logins(key, value)
-            self.success.grid(row=4, column=2)
-            self.success.after(2000,
-                    lambda: self.success.grid_forget())
+            else:
+                # add new user to database.
+                DataBases.add_logins(key, value)
+                self.success.grid(row=4, column=2)
+                self.success.after(2000,
+                        lambda: self.success.grid_forget())
         
 
     def check_member(self, key, value):
         # in log-in field check if account is exist or not.
+        if (key != '') and (value != ''):
+            self.signin_username.delete(0, END)
+            self.signin_pwd.delete(0, END)
 
-        self.signin_username.delete(0, END)
-        self.signin_pwd.delete(0, END)
-
-        if DataBases.existing_user_or_not(key, value):
-            self.choice_data()
-            self.current_user = key
+            if DataBases.existing_user_or_not(key, value):
+                self.choice_data()
+                self.current_user = key
         
-        else:
-            self.login_error.grid(row=4, column=2)
-            self.login_error.after(2500,
-                    lambda: self.login_error.grid_forget())
+            else:
+                self.login_error.grid(row=4, column=2)
+                self.login_error.after(2500,
+                        lambda: self.login_error.grid_forget())
 
 
     def choice_data(self):
         # showing up the data choice form.
 
         self.clear_side()
-        self.pick.grid(row=0, column=1, columnspan=2)
-        self.mail_button.grid(row=1, column=1, columnspan=2)
-        self.contact_button.grid(row=2, column=1)
-        self.randomdata_button.grid(row=2, column=2)
+        self.pick.grid(row=0, column=2, columnspan=2)
+        self.mail_button.grid(row=1, column=2, columnspan=2)
+        self.contact_button.grid(row=2, column=2)
+        self.randomdata_button.grid(row=2, column=3)
+        self.space1st.grid(column=1, row=0)
+        self.space2nd.grid(column=4, row=0)
 
 
     def data_list(self, type):
